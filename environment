@@ -1,0 +1,13 @@
+SCRIPT=$BASH_SOURCE
+SCRIPT_DIR=$(dirname $(realpath "$SCRIPT"))
+
+python3 -m venv "$SCRIPT_DIR/venv"
+. "$SCRIPT_DIR/venv/bin/activate"
+
+pip install --upgrade pip setuptools wheel
+pip install --upgrade -r "$SCRIPT_DIR/requirements.txt"
+
+export CONAN_USER_HOME="$SCRIPT_DIR"
+conan profile new default --detect --force
+
+# EOF
