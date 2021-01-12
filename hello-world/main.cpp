@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-TEST(Main, HelloAWorld) {
+TEST(Main, HelloWorld) {
 SUCCEED();
 }
 
