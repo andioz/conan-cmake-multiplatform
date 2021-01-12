@@ -6,7 +6,7 @@ BUILD_DIR="build/linux-old"
 rm -rf "$BUILD_DIR"
 mkdir -p "$BUILD_DIR"
 
-PROFILE="linux_profile"
+PROFILE="profiles/linux_profile"
 
 set -x
 conan install . -if "$BUILD_DIR" -b missing -pr "$PROFILE"

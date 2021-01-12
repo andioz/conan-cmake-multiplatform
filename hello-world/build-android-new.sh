@@ -6,8 +6,8 @@ BUILD_DIR="build/android-new"
 rm -rf "$BUILD_DIR"
 mkdir -p "$BUILD_DIR"
 
-BUILD_PROFILE="linux_build_profile"
-HOST_PROFILE="android_host_profile"
+BUILD_PROFILE="profiles/linux_build_profile"
+HOST_PROFILE="profiles/android_host_profile"
 
 # TODO this values should come from android ndk installer?
 ANDROID_ABI="arm64-v8a"

@@ -6,7 +6,7 @@ BUILD_DIR="build/linux-new"
 rm -rf "$BUILD_DIR"
 mkdir -p "$BUILD_DIR"
 
-BUILD_PROFILE="linux_build_profile"
+BUILD_PROFILE="profiles/linux_build_profile"
 
 set -x
 conan install . -if "$BUILD_DIR" -b missing -pr:b "$BUILD_PROFILE"

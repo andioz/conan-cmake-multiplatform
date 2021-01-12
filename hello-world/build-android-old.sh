@@ -6,7 +6,7 @@ BUILD_DIR="build/android-old"
 rm -rf "$BUILD_DIR"
 mkdir -p "$BUILD_DIR"
 
-PROFILE="android_profile"
+PROFILE="profiles/android_profile"
 
 # TODO this values should come from android ndk installer?
 ANDROID_ABI="arm64-v8a"
