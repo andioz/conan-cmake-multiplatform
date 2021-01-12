@@ -2,7 +2,6 @@ import conans
 
 
 class ProjectConan(conans.ConanFile):
-    settings = "os", "compiler", "build_type", "arch"
     generators = "cmake"
 
     requires = (
