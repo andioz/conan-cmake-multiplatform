@@ -6,7 +6,7 @@ platforms (Linux and Android for the beginning).
 ## Environment
 
 Sourcing the environment file: `. environment` does:
-* create a new python virtual environment
+* create a new python virtual environment (if not exist)
 * activate this virtual environment
 * install/update primary python packages
 * install/update other packages
