@@ -10,7 +10,6 @@ SOURCE_DIR="project"
 PROFILE="profiles/android_profile"
 
 set -x
-conan install "$SOURCE_DIR" -if "$BUILD_DIR" -b missing -pr "$PROFILE"
-cmake -S "$SOURCE_DIR" -B "$BUILD_DIR"
+cmake -S "$SOURCE_DIR" -B "$BUILD_DIR" -D "CONAN_PROFILE=\${CMAKE_SOURCE_DIR}/../$PROFILE"
 cmake --build "$BUILD_DIR"
 file "$BUILD_DIR/bin/hello-world-2"

@@ -1,4 +1,30 @@
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.16)
+
+# Find conan executable
+find_program (
+        CONAN_EXECUTABLE conan
+        REQUIRED
+        PATHS "${CMAKE_SOURCE_DIR}/venv/bin"
+        PATHS "${CMAKE_SOURCE_DIR}/../venv/bin"
+        PATHS "${CMAKE_SOURCE_DIR}/../../venv/bin"
+)
+if("${CONAN_EXECUTABLE}" STREQUAL "CONAN_EXECUTABLE-NOTFOUND")  # TODO shorter
+    message(FATAL_ERROR "Cannot find conan executable")
+endif()
+
+# Run "conan install"
+set(_options "${CMAKE_SOURCE_DIR}" --install-folder "${CMAKE_BINARY_DIR}" --build outdated)
+if(NOT "${CONAN_PROFILE}" STREQUAL "")
+    list(APPEND _options --profile ${CONAN_PROFILE})
+endif()
+if(NOT "${CONAN_BUILD_PROFILE}" STREQUAL "")
+    list(APPEND _options --profile:build ${CONAN_BUILD_PROFILE})
+endif()
+if(NOT "${CONAN_HOST_PROFILE}" STREQUAL "")
+    list(APPEND _options --profile:host ${CONAN_HOST_PROFILE})
+endif()
+execute_process(COMMAND ${CONAN_EXECUTABLE} install ${_options})
+unset(_options)
 
 # Set conan environment variables
 if(EXISTS "${CMAKE_BINARY_DIR}/environment.sh.env")

@@ -10,7 +10,6 @@ SOURCE_DIR="project"
 BUILD_PROFILE="profiles/linux_build_profile"
 
 set -x
-conan install "$SOURCE_DIR" -if "$BUILD_DIR" -b missing -pr:b "$BUILD_PROFILE"
-cmake -S "$SOURCE_DIR" -B "$BUILD_DIR"
+cmake -S "$SOURCE_DIR" -B "$BUILD_DIR" -D "CONAN_BUILD_PROFILE=\${CMAKE_SOURCE_DIR}/../$BUILD_PROFILE"
 cmake --build "$BUILD_DIR"
 file "$BUILD_DIR/bin/hello-world-2"
