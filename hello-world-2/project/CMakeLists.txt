@@ -2,11 +2,11 @@ cmake_minimum_required(VERSION 3.16)
 
 # Find conan executable
 find_program (
-        CONAN_EXECUTABLE conan
-        REQUIRED
-        PATHS "${CMAKE_SOURCE_DIR}/venv/bin"
-        PATHS "${CMAKE_SOURCE_DIR}/../venv/bin"
-        PATHS "${CMAKE_SOURCE_DIR}/../../venv/bin"
+    CONAN_EXECUTABLE conan
+    REQUIRED
+    PATHS "${CMAKE_SOURCE_DIR}/venv/bin"
+    PATHS "${CMAKE_SOURCE_DIR}/../venv/bin"
+    PATHS "${CMAKE_SOURCE_DIR}/../../venv/bin"
 )
 if("${CONAN_EXECUTABLE}" STREQUAL "CONAN_EXECUTABLE-NOTFOUND")  # TODO shorter
     message(FATAL_ERROR "Cannot find conan executable")
@@ -36,20 +36,19 @@ if(EXISTS "${CMAKE_BINARY_DIR}/environment.sh.env")
             set(_key "${CMAKE_MATCH_1}")
             set(_value "${CMAKE_MATCH_2}")
             # TODO need improvement to be more general
-            string(REGEX MATCHALL "^(.*)\\$\\{([^+]+)\\+([^$]*)\\$([^}]+)\\}$" _match ${_value})
+            string(REGEX MATCH "^(.*)\\$\\{([^+]+)\\+([^$]*)\\$([^}]+)\\}$" _match ${_value})
             if(NOT "${_match}" STREQUAL "")
                 set(_prefix "${CMAKE_MATCH_1}")
                 set(_left "${CMAKE_MATCH_2}")
                 set(_separator "${CMAKE_MATCH_3}")
                 set(_right "${CMAKE_MATCH_4}")
-                if("${_left}" STREQUAL "${_right}")
-                    if("$ENV{${_left}}" STREQUAL "")
-                        set(ENV{${_key}} "${_prefix}")
-                    else()
-                        set(ENV{${_key}} "${_prefix}${_separator}$ENV{${_right}}")
-                    endif()
-                else()
+                if(NOT "${_left}" STREQUAL "${_right}")
                     message(FATAL_ERROR "Unhandled advanced setting for [${_match}]")
+                endif()
+                if("$ENV{${_left}}" STREQUAL "")
+                    set(ENV{${_key}} "${_prefix}")
+                else()
+                    set(ENV{${_key}} "${_prefix}${_separator}$ENV{${_right}}")
                 endif()
             else()
                 set(ENV{${_key}} "${_value}")
